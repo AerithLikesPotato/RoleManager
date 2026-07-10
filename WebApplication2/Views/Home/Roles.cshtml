@@ -1,0 +1,233 @@
+@model List<WebApplication2.Models.Role>
+@{
+    ViewData["Title"] = "Roles";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/html.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/role.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        @await Html.PartialAsync("_Notifications")
+        <header class="navbar">
+            <div class="logo-section">
+                <a asp-controller="Home" asp-action="Home" class="logo-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.645 5.264a1.25 1.25 0 0 0-1.29 0l-.516.31a10.75 10.75 0 0 1-4.537 1.494l-.325.03a.25.25 0 0 0-.227.25V8.99a9.25 9.25 0 0 0 2.82 6.65l3.256 3.148a.25.25 0 0 0 .348 0l3.255-3.147a9.25 9.25 0 0 0 2.821-6.65V7.346a.25.25 0 0 0-.227-.248l-.325-.031a10.75 10.75 0 0 1-4.537-1.493zM10.58 3.979a2.75 2.75 0 0 1 2.838 0l.516.31a9.25 9.25 0 0 0 3.904 1.286l.325.03a1.75 1.75 0 0 1 1.586 1.742v1.644a10.75 10.75 0 0 1-3.278 7.73l-3.256 3.146a1.75 1.75 0 0 1-2.432 0L7.528 16.72A10.75 10.75 0 0 1 4.25 8.991V7.347a1.75 1.75 0 0 1 1.586-1.742l.325-.03a9.25 9.25 0 0 0 3.904-1.285z" clip-rule="evenodd"></path></svg>
+                    Vantage
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li class="nav-item search-item">
+                    <form class="search-form" action="#" method="get">
+                        <input type="search" name="q" placeholder="Search users, roles..." aria-label="Search" />
+                        <button type="submit" aria-label="Submit search">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M10.5 3a7.5 7.5 0 1 1-7.5 7.5A7.51 7.51 0 0 1 10.5 3m0-1A8.5 8.5 0 1 0 19 10.5A8.51 8.51 0 0 0 10.5 2zM21.71 20.29l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-.29-.29a1.003 1.003 0 0 0-.29-.71L2 .29a1.003 1.003 0 0 0-.71-.29H2a1.003 1.003 0 0 0-.71-.29L2 .29a1.003 1.003 0 0 0 .29.71l.29.29z"/></svg>
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="notif" href="#">
+                        <span class="notif-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5a.5.5 0 0 0-.5-.5a.5.5 0 0 0-.5.5v1.53c-2.25.25-4 2.15-4 4.47v5.91L5.41 18h12.18L16 16.41V10.5c0-2.32-1.75-4.22-4-4.47zM11.5 3A1.5 1.5 0 0 1 13 4.5v.71c2.31.65 4 2.79 4 5.29V16l3 3H3l3-3v-5.5C6 8 7.69 5.86 10 5.21V4.5A1.5 1.5 0 0 1 11.5 3m0 19a2.5 2.5 0 0 1-2.45-2h1.04a1.495 1.495 0 0 0 2.82 0h1.04a2.5 2.5 0 0 1-2.45 2"/></svg>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <div class="profile-dropdown" onclick="toggleDropdown(event)">
+                        <img src="~/images/profile/pfp1.jpg" alt="Profile" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;" />
+                        <div class="profileDetail">
+                            <span style="font-size: 0.85rem; font-weight: bold; color: #ffff">@(User?.Identity?.Name ?? "Jonh Doe")</span>
+                            <span style="font-size: 0.75rem; color: #64748b;">@(User?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "Viewer")</span>
+                        </div>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        <div id="myDropdown" class="dropdown-menu">
+                            <a asp-controller="Home" asp-action="Profile">My Profile</a>
+                            <a asp-controller="Home" asp-action="Settings">Setting</a>
+                            <a asp-controller="Account" asp-action="Login">Signout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </header>
+
+        <div class="page-layout">
+            <aside class="sidebar">
+                <p class="sidebar-title">Workspace</p>
+                <ul class="nav2">
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Home"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Dashboard</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Users"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 19v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1m6 0v-1a4 4 0 0 0-4-4m-2.5-8.83a3 3 0 1 1 0 5.659M12 8a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z"/></svg>Users</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Roles" class="active"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.645 5.264a1.25 1.25 0 0 0-1.29 0l-.516.31a10.75 10.75 0 0 1-4.537 1.494l-.325.03a.25.25 0 0 0-.227.25V8.99a9.25 9.25 0 0 0 2.82 6.65l3.256 3.148a.25.25 0 0 0 .348 0l3.255-3.147a9.25 9.25 0 0 0 2.821-6.65V7.346a.25.25 0 0 0-.227-.248l-.325-.031a10.75 10.75 0 0 1-4.537-1.493zM10.58 3.979a2.75 2.75 0 0 1 2.838 0l.516.31a9.25 9.25 0 0 0 3.904 1.286l.325.03a1.75 1.75 0 0 1 1.586 1.742v1.644a10.75 10.75 0 0 1-3.278 7.73l-3.256 3.146a1.75 1.75 0 0 1-2.432 0L7.528 16.72A10.75 10.75 0 0 1 4.25 8.991V7.347a1.75 1.75 0 0 1 1.586-1.742l.325-.03a9.25 9.25 0 0 0 3.904-1.285z" clip-rule="evenodd"></path></svg>Roles</a>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <p>Vantage Enterprise<br>Design showcase build</p>
+                </div>
+            </aside>
+
+            <main class="main-content">
+            <div class="roles-page" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b;">
+                <div class="roles-page-header">
+                    <div>
+                        <span style="color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Access Control</span>
+                        <h2 style="font-size:1.75rem; font-weight: 700; margin: 0.25rem 0 0 0; color: #0f172a;">Roles</h2>
+                        <p style="color: #64748b; font-size:0.85rem; margin: 0.25rem 0 0 0;">@Model.Count roles define what each user can see and do.</p>
+                    </div>
+                    <button type="button" onclick="openPopUp('createRoleModal')" style="background-color: #0f4c81; color: white; border:none; padding: 0.6rem 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items:center; gap:0.5rem; font-size: 0.9rem;">
+                        <span style="font-size: 1.1rem; font-weight: bold;">+</span>Create Role
+                    </button>
+                </div>
+
+                <div class="roles-table-card">
+                    <table class="roles-table">
+                        <thead style="background-color: #fafafa; color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;">
+                            <tr>
+                                <th style="padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0;">Role</th>
+                                <th style="padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0;">Description</th>
+                                <th style="padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0;">Users</th>
+                                <th style="padding: 1rem 1.5rem; text-align: right; border-bottom: 1px solid #e2e8f0;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td style="padding: 1.25rem 1.5rem;">
+                                        <span class="role-chip">
+                                            <span>@role.Name</span>
+                                        </span>
+                                    </td>
+                                    <td class="description">@role.Description</td>
+                                    <td class="user">@role.Users.Count users</td>
+                                    <td class="edit"><button type="button" onclick="openEditRoleModal(this)" data-id="@role.ID" data-name="@role.Name" data-description="@role.Description" aria-label="Edit role" style="background: transparent; border: none; color: #0f4c81; font-size: 0.85rem; cursor: pointer; font-weight: 600;">Edit</button></td>
+                                </tr>
+                            }
+                            @if (!Model.Any())
+                            {
+                                <tr><td colspan="4" style="padding: 1.5rem; text-align:center; color:#64748b;">No roles yet.</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </main>
+        </div>
+    </div>
+    <div id="createRoleModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="createRoleTitle" style="display:none;">
+        <div class="modal-card">
+            <h3 id="createRoleTitle">Create New Role</h3>
+            <p>Fill out the details below to add a new role.</p>
+            <form id="createRoleForm" asp-controller="Home" asp-action="CreateRole" method="post">
+                <div class="form-group">
+                    <label for="roleName">Role Name</label>
+                    <input type="text" id="roleName" name="roleName" placeholder="Enter role name">
+                </div>
+                <div class="form-group">
+                    <label for="roleDescription">Description</label>
+                    <input type="text" id="roleDescription" name="roleDescription" placeholder="Enter description">
+                </div>
+                <div class="form-group">
+                    <label>Allowed Permissions</label>
+                    <div class="permission-list">
+                        <label class="permission-item" for="cbx-view-role-list">
+                            <input type="checkbox" id="cbx-view-role-list" name="permissions" value="view-role-list" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">View role list</span>
+                        </label>
+                        <label class="permission-item" for="cbx-create-role">
+                            <input type="checkbox" id="cbx-create-role" name="permissions" value="create-role" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Create role</span>
+                        </label>
+                        <label class="permission-item" for="cbx-view-role-details">
+                            <input type="checkbox" id="cbx-view-role-details" name="permissions" value="view-role-details" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">View role details</span>
+                        </label>
+                        <label class="permission-item" for="cbx-edit-role">
+                            <input type="checkbox" id="cbx-edit-role" name="permissions" value="edit-role" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Edit role</span>
+                        </label>
+                        <label class="permission-item" for="cbx-delete-role">
+                            <input type="checkbox" id="cbx-delete-role" name="permissions" value="delete-role" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Delete role</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" onclick="closePopUp('createRoleModal')" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="editRoleModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editRoleTitle">
+        <div class="modal-card">
+            <h3 id="editRoleTitle">Edit Role</h3>
+            <p>Adjust the role name and description below.</p>
+            <form id="editRoleForm" asp-controller="Home" asp-action="UpdateRole" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="editRoleId" name="Id" />
+                <div class="form-group">
+                    <label for="editRoleName">Role Name</label>
+                    <input type="text" id="editRoleName" name="RoleName" placeholder="Enter role name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editRoleDescription">Description</label>
+                    <input type="text" id="editRoleDescription" name="RoleDescription" placeholder="Enter description">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" onclick="closePopUp('editRoleModal')" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-submit">Save Changes</button>
+                </div>
+            </form>
+            <form id="deleteRoleForm" asp-controller="Home" asp-action="DeleteRole" method="post" style="margin-top: 0.75rem;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="deleteRoleId" name="Id" />
+                <button type="submit" class="btn-delete">Delete Role</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/js/profile.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js" asp-append-version="true"></script>
+</body>
+</html>

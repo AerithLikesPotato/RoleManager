@@ -1,0 +1,145 @@
+﻿body {
+}
+.ProfileBanner {
+	display: flex;
+	margin-top: 40px;
+	margin-left: 0;
+	background: #0f4583;
+	border-radius: 10px;
+	padding: 20px;
+	width: 100%;
+	height: auto;
+	min-height: 180px;
+	box-sizing: border-box;
+}
+
+.profile-mainContent {
+	display: flex;
+	gap: 24px;
+	border-bottom: 1px solid #e2e8f0;
+	margin-bottom: 24px;
+	width: 100%;
+}
+
+.tab-link {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #64748b;
+	text-decoration: none;
+	padding-bottom: 12px;
+	border-bottom: 2px solid transparent;
+	white-space: nowrap;
+}
+
+	.tab-link.active {
+		color: #0f4c81;
+		border-bottom-color: #0f4c81;
+	}
+
+.profile-form-card {
+	background: white;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	width: 100%;
+	max-width: 680px;
+	margin-top: -40px;
+	padding: 20px;
+}
+
+.form-row {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+.form-field, .form-field-half {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	width: 100%;
+	min-width: 0;
+}
+
+.form-row .form-field {
+	margin-bottom: 0;
+}
+
+.form-field label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #334155;
+	margin-bottom: 8px;
+}
+
+.form-field input, .form-field textarea {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	color: #1e293b;
+	background-color: white;
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.15s;
+	max-width: 100%;
+}
+
+.form-field-half input {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	color: #1e293b;
+	background-color: white;
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.15s;
+	max-width: 100%;
+}
+
+.form-field input:focus, .form-field textarea:focus {
+	border-color: #2563eb;
+}
+
+.form-field input:disabled {
+	background-color: #f8fafc;
+	color: #94a3b8;
+	border-color: #e2e8f0;
+	cursor: not-allowed;
+}
+
+.btn-reset, .btn-save {
+	width: 20%;
+	height: 40px;
+	padding: 10px;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	font-size: 0.8rem;
+	color: #ffffff;
+	background-color: white;
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.15s;
+	max-width: 100%;
+}
+
+.btn-reset {
+	background: #ff6464;
+}
+
+	.btn-reset:hover {
+		background: #b64545;
+		transition: 0.15s ease;
+	}
+
+.btn-save {
+	background: #6ba3e4;
+}
+
+	.btn-save:hover {
+		background: #1b3450;
+		transition: 0.15s ease;
+	}

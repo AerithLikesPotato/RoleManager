@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "OPbJhwjsrlM=",
+  "success": true,
+  "projectFilePath": "D:\\WebApplication2_with_profile\\WebApplication2_with_profile\\WebApplication2\\WebApplication2\\WebApplication2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.data.sqlite.core\\10.0.0\\microsoft.data.sqlite.core.10.0.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.4\\microsoft.entityframeworkcore.10.0.4.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.4\\microsoft.entityframeworkcore.abstractions.10.0.4.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.4\\microsoft.entityframeworkcore.analyzers.10.0.4.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.4\\microsoft.entityframeworkcore.relational.10.0.4.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.relational.design\\1.1.0\\microsoft.entityframeworkcore.relational.design.1.1.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\10.0.0\\microsoft.entityframeworkcore.sqlite.10.0.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\10.0.0\\microsoft.entityframeworkcore.sqlite.core.10.0.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.0\\microsoft.extensions.dependencymodel.10.0.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\npgsql\\10.0.3\\npgsql.10.0.3.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.2\\npgsql.entityframeworkcore.postgresql.10.0.2.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql.design\\1.1.0\\npgsql.entityframeworkcore.postgresql.design.1.1.0.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.11\\sqlitepclraw.bundle_e_sqlite3.2.1.11.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\sqlitepclraw.core\\2.1.11\\sqlitepclraw.core.2.1.11.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\3.53.3\\sqlitepclraw.lib.e_sqlite3.3.53.3.nupkg.sha512",
+    "C:\\Users\\vongsarith.teang\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.11\\sqlitepclraw.provider.e_sqlite3.2.1.11.nupkg.sha512"
+  ],
+  "logs": []
+}

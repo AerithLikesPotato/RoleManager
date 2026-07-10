@@ -1,0 +1,192 @@
+.description {
+    padding: 1.2rem 1.5rem;
+    color: #64748b;
+}
+
+.userName,
+.userJoined {
+    padding: 1.25rem 1.5rem;
+    color: #0f172a;
+}
+
+.userStatus-Active {
+    padding: 1.25rem 1.5rem;
+}
+
+.status-pill-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(23, 141, 0, 0.1);
+    border: 1px solid rgba(23, 141, 0, 0.2);
+    color: #178d00;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-dot-active {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #33b24b;
+    box-shadow: 0 0 0 0 rgba(51, 178, 75, 0.7);
+    animation: pulse-dot 1.8s infinite;
+}
+
+.status-dot-active::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(51, 178, 75, 0.35);
+    border-radius: 50%;
+    animation: pulse-ring 1.8s infinite;
+}
+
+.status-text-active {
+    color: #178d00;
+}
+
+.userStatus-inactive {
+    padding: 1.25rem 1.5rem;
+}
+
+.status-pill-inactive, .status-inactive {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(63, 63, 63, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #bebebe;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-dot-inactive {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #525252;
+    box-shadow: 0 0 0 0 rgba(82, 82, 82, 0.7);
+    animation: pulse-dot-inactive 1.8s infinite;
+}
+
+.status-dot-inactive::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(82, 82, 82, 0.35);
+    border-radius: 50%;
+    animation: pulse-ring 1.8s infinite;
+}
+
+.status-text-inactive {
+    color: #666666;
+}
+
+.userStatus-suspend {
+    padding: 1.25rem 1.5rem;
+}
+
+.status-pill-suspend, .status-suspend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-dot-suspend {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff0000;
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    animation: pulse-dot-suspend 1.8s infinite;
+}
+
+.status-dot-suspend::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(255, 0, 0, 0.35);
+    border-radius: 50%;
+    animation: pulse-ring 1.8s infinite;
+}
+
+.status-text-suspend {
+    color: #ff0000;
+}
+@keyframes pulse-dot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(51, 178, 75, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(51, 178, 75, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(51, 178, 75, 0);
+    }
+}
+
+@keyframes pulse-dot-inactive {
+    0% {
+        box-shadow: 0 0 0 0 rgba(82, 82, 82, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(82, 82, 82, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(82, 82, 82, 0);
+    }
+}
+
+@keyframes pulse-dot-suspend {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+}
+
+.edit{
+    padding: 1.25rem 1.5rem;
+    text-align: right;
+}
+
+.edit button {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    color: #64748b;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.6rem;
+    line-height: 1;
+}

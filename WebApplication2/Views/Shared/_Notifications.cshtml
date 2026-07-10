@@ -1,0 +1,17 @@
+@{
+    var notificationMessage = TempData["NotificationMessage"] as string ?? ViewData["NotificationMessage"] as string;
+    var notificationType = TempData["NotificationType"] as string ?? ViewData["NotificationType"] as string ?? "info";
+}
+
+<div id="notification-root" class="notification-container" aria-live="polite" aria-atomic="true"></div>
+
+@if (!string.IsNullOrWhiteSpace(notificationMessage))
+{
+    <script>
+        window.__notificationQueue = window.__notificationQueue || [];
+        window.__notificationQueue.push({
+            message: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(notificationMessage)),
+            type: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(notificationType))
+        });
+    </script>
+}

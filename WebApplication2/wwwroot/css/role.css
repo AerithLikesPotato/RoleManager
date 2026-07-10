@@ -1,0 +1,221 @@
+.tbody{
+    color: #475569;
+}
+.tr{
+    border-bottom: 1px solid #f1f5f9;
+}
+.roleTitle{
+    background-color: rgba(59, 141, 247, 0.548);
+    color: #25418d;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.roles-page {
+    width: 100%;
+    min-width: 0;
+}
+
+.roles-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0 1.25rem;
+}
+
+@media screen and (max-width: 768px) {
+    .roles-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .roles-table {
+        min-width: 560px;
+    }
+}
+
+.roles-table-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.roles-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.85rem;
+    min-width: 640px;
+}
+
+.role-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #eef6ff 0%, #dfefff 100%);
+    color: #20508f;
+    font-weight: 700;
+    font-size: 0.8rem;
+    box-shadow: inset 0 0 0 1px rgba(15, 76, 129, 0.12);
+}
+
+.role-chip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: rgba(15, 76, 129, 0.12);
+    font-size: 0.72rem;
+}
+
+.description{
+    padding: 1.2rem 1.5rem;
+    color: #64748b;
+}
+.user{
+    padding: 1.25rem 1.5rem;
+}
+.edit{
+    padding: 1.25rem 1.5rem;
+    text-align: right;
+}
+
+.edit button {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    color: #64748b;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.6rem;
+    line-height: 1;
+}
+
+.permission-list {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+}
+
+.permission-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.72rem 0.85rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.permission-item:hover {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.permission-item input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.check {
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+}
+
+.check:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34, 50, 84, 0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+}
+
+.check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+}
+
+.check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+}
+
+.permission-item:hover .check:before {
+    opacity: 1;
+}
+
+.permission-item:hover .check {
+    border-color: #4285f4;
+}
+
+.permission-item:hover .check svg {
+    stroke: #4285f4;
+}
+
+.permission-item input:checked + .check {
+    border-color: #4285f4;
+    background: #eef5ff;
+}
+
+.permission-item input:checked + .check svg {
+    stroke: #4285f4;
+}
+
+.permission-item input:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.3s linear;
+}
+
+.permission-item input:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
+}
+
+.permission-text {
+    color: #334155;
+    font-size: 0.95rem;
+}

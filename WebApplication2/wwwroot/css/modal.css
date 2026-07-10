@@ -1,0 +1,50 @@
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.55);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.modal-overlay.modal-open{
+  display:flex;
+}
+
+.modal-card{
+    background:#fff;
+    width: min(640px, 92vw);
+    max-height: 85vh;
+    overflow:auto;
+    border-radius:14px;
+    padding:1.25rem;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:0.75rem;
+    margin-top:1rem;
+}
+
+.btn-cancel{
+    background:transparent;
+    border:1px solid #cbd5e1;
+    color:#64748b;
+    padding:0.55rem 1rem;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-submit{
+    background-color:#0f4c81;
+    color:#fff;
+    border:none;
+    padding:0.55rem 1rem;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+

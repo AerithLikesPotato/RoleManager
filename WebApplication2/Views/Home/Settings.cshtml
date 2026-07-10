@@ -1,0 +1,137 @@
+@model WebApplication2.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "Settings";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/html.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        @await Html.PartialAsync("_Notifications")
+        <header class="navbar">
+            <div class="logo-section">
+                <a asp-controller="Home" asp-action="Home" class="logo-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.645 5.264a1.25 1.25 0 0 0-1.29 0l-.516.31a10.75 10.75 0 0 1-4.537 1.494l-.325.03a.25.25 0 0 0-.227.25V8.99a9.25 9.25 0 0 0 2.82 6.65l3.256 3.148a.25.25 0 0 0 .348 0l3.255-3.147a9.25 9.25 0 0 0 2.821-6.65V7.346a.25.25 0 0 0-.227-.248l-.325-.031a10.75 10.75 0 0 1-4.537-1.493zM10.58 3.979a2.75 2.75 0 0 1 2.838 0l.516.31a9.25 9.25 0 0 0 3.904 1.286l.325.03a1.75 1.75 0 0 1 1.586 1.742v1.644a10.75 10.75 0 0 1-3.278 7.73l-3.256 3.146a1.75 1.75 0 0 1-2.432 0L7.528 16.72A10.75 10.75 0 0 1 4.25 8.991V7.347a1.75 1.75 0 0 1 1.586-1.742l.325-.03a9.25 9.25 0 0 0 3.904-1.285z" clip-rule="evenodd"></path></svg>
+                    Vantage
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li class="nav-item search-item">
+                    <form class="search-form" action="#" method="get">
+                        <input type="search" name="q" placeholder="Search users, roles..." aria-label="Search" />
+                        <button type="submit" aria-label="Submit search">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M10.5 3a7.5 7.5 0 1 1-7.5 7.5A7.51 7.51 0 0 1 10.5 3m0-1A8.5 8.5 0 1 0 19 10.5A8.51 8.51 0 0 0 10.5 2zM21.71 20.29l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-.29-.29a1.003 1.003 0 0 0-.29-.71L2 .29a1.003 1.003 0 0 0-.71-.29H2a1.003 1.003 0 0 0-.71-.29L2 .29a1.003 1.003 0 0 0 .29.71l.29.29z"/></svg>
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="notif" href="#">
+                        <span class="notif-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5a.5.5 0 0 0-.5-.5a.5.5 0 0 0-.5.5v1.53c-2.25.25-4 2.15-4 4.47v5.91L5.41 18h12.18L16 16.41V10.5c0-2.32-1.75-4.22-4-4.47zM11.5 3A1.5 1.5 0 0 1 13 4.5v.71c2.31.65 4 2.79 4 5.29V16l3 3H3l3-3v-5.5C6 8 7.69 5.86 10 5.21V4.5A1.5 1.5 0 0 1 11.5 3m0 19a2.5 2.5 0 0 1-2.45-2h1.04a1.495 1.495 0 0 0 2.82 0h1.04a2.5 2.5 0 0 1-2.45 2"/></svg>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <div class="profile-dropdown" onclick="toggleDropdown(event)">
+                        <img src="@(string.IsNullOrEmpty(Model.AvatarUrl) ? "/images/profile/pfp1.jpg" : Model.AvatarUrl)" alt="Profile" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;" />
+                        <div class="profileDetail">
+                            <span style="font-size: 0.85rem; font-weight: bold; color: #ffff">@Model.CurrentUserName</span>
+                            <span style="font-size: 0.75rem; color: #64748b;">@Model.CurrentUserRole</span>
+                        </div>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        <div id="myDropdown" class="dropdown-menu">
+                            <a asp-controller="Home" asp-action="Profile">My Profile</a>
+                            <a asp-controller="Home" asp-action="Settings">Setting</a>
+                            <a asp-controller="Account" asp-action="Login">Signout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </header>
+
+        <div class="page-layout">
+            <aside class="sidebar">
+                <p class="sidebar-title">Workspace</p>
+                <ul class="nav2">
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Home"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Dashboard</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Users"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 19v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1m6 0v-1a4 4 0 0 0-4-4m-2.5-8.83a3 3 0 1 1 0 5.659M12 8a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z"/></svg>Users</a>
+                    </li>
+                    <li class="nav-item2">
+                        <a asp-controller="Home" asp-action="Roles"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.645 5.264a1.25 1.25 0 0 0-1.29 0l-.516.31a10.75 10.75 0 0 1-4.537 1.494l-.325.03a.25.25 0 0 0-.227.25V8.99a9.25 9.25 0 0 0 2.82 6.65l3.256 3.148a.25.25 0 0 0 .348 0l3.255-3.147a9.25 9.25 0 0 0 2.821-6.65V7.346a.25.25 0 0 0-.227-.248l-.325-.031a10.75 10.75 0 0 1-4.537-1.493zM10.58 3.979a2.75 2.75 0 0 1 2.838 0l.516.31a9.25 9.25 0 0 0 3.904 1.286l.325.03a1.75 1.75 0 0 1 1.586 1.742v1.644a10.75 10.75 0 0 1-3.278 7.73l-3.256 3.146a1.75 1.75 0 0 1-2.432 0L7.528 16.72A10.75 10.75 0 0 1 4.25 8.991V7.347a1.75 1.75 0 0 1 1.586-1.742l.325-.03a9.25 9.25 0 0 0 3.904-1.285z" clip-rule="evenodd"></path></svg>Roles</a>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <p>Vantage Enterprise<br>Design showcase build</p>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:0.5rem; margin-top:2rem;">
+                        <div>
+                            <span style="color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">account</span>
+                            <h2 style="font-size:1.75rem; font-weight: 700; margin: 0.25rem 0 0 0; color: #0f172a;">Good to see you, @Model.FullName</h2>
+                            <p style="color: #64748b; font-size:0.85rem; margin: 0.25rem 0 0 0;">Manage your account security.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ProfileBanner">
+                    <img src="@(string.IsNullOrEmpty(Model.AvatarUrl) ? "/images/profile/pfp1.jpg" : Model.AvatarUrl)" alt="Profile" style="width: 180px; height: 180px; border-radius:50%; border: 3px solid rgb(30, 51, 83); object-fit: cover; margin-top: -70px;" />
+                    <div class="profileDetail">
+                        <span style="font-size: 34px; font-weight: bold; color: #ffffff; margin-left: 30px; margin-top:-6px;">Name: @Model.FullName</span>
+                        <span style="font-size: 19px; color:#80868d; margin-left: 30px; margin-bottom: 15px;">Email: @Model.Email</span>
+                        <span style="background-color: rgba(255, 255, 255, 0.151); color: #ffffff; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-left: 30px;">@Model.RoleName</span>
+                    </div>
+                </div>
+
+                <div class="profile-mainContent">
+                    <a asp-controller="Home" asp-action="Profile" class="tab-link">Profile Info</a>
+                    <a asp-controller="Home" asp-action="Settings" class="tab-link active">Security</a>
+                </div>
+
+                <div class="profile-form-card">
+                    <h3 style="margin:0 0 4px 0; font-size:1.05rem; color: #0f172a; font-weight: bold;">Change Password</h3>
+                    <p style="font-size: 0.85rem; color: #64748b; margin: 0 0 24px 0;">Choose a strong password you don't use elsewhere.</p>
+
+                    <form id="changePasswordForm" asp-controller="Home" asp-action="ChangePassword" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="form-field">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="CurrentPassword" required />
+                        </div>
+
+                        <div class="form-field">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="NewPassword" minlength="6" required />
+                        </div>
+
+                        <div class="form-field">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" name="ConfirmPassword" minlength="6" required />
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn-reset">Reset</button>
+                            <button type="submit" class="btn-save">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/js/profile.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js" asp-append-version="true"></script>
+</body>
+</html>
