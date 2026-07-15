@@ -25,25 +25,19 @@
                     <form class="search-form" action="#" method="get">
                         <input type="search" name="q" placeholder="Search users, roles..." aria-label="Search" />
                         <button type="submit" aria-label="Submit search">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M10.5 3a7.5 7.5 0 1 1-7.5 7.5A7.51 7.51 0 0 1 10.5 3m0-1A8.5 8.5 0 1 0 19 10.5A8.51 8.51 0 0 0 10.5 2zM21.71 20.29l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-.29-.29a1.003 1.003 0 0 0-.29-.71L2 .29a1.003 1.003 0 0 0-.71-.29H2a1.003 1.003 0 0 0-.71-.29L2 .29a1.003 1.003 0 0 0 .29.71l.29.29z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M10.5 3a7.5 7.5 0 1 1-7.5 7.5A7.51 7.51 0 0 1 10.5 3m0-1A8.5 8.5 0 1 0 19 10.5A8.51 8.51 0 0 0 10.5 2zM21.71 20.29l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-4-4a1.003 1.003 0 0 0-1.42-1.42l-.29-.29a1.003 1.003 0 0 0-.29-.71L2 .29a1.003 1.003 0 0 0-.71-.29H2a1.003 1.003 0 0 0-.71-.29L2 .29a1.003 1.003 0 0 0 .29.71l.29.29z"/></svg>
                         </button>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="notif" href="#">
-                        <span class="notif-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5a.5.5 0 0 0-.5-.5a.5.5 0 0 0-.5.5v1.53c-2.25.25-4 2.15-4 4.47v5.91L5.41 18h12.18L16 16.41V10.5c0-2.32-1.75-4.22-4-4.47zM11.5 3A1.5 1.5 0 0 1 13 4.5v.71c2.31.65 4 2.79 4 5.29V16l3 3H3l3-3v-5.5C6 8 7.69 5.86 10 5.21V4.5A1.5 1.5 0 0 1 11.5 3m0 19a2.5 2.5 0 0 1-2.45-2h1.04a1.495 1.495 0 0 0 2.82 0h1.04a2.5 2.5 0 0 1-2.45 2"/></svg>
-                        </span>
-                    </a>
-                </li>
+                @await Html.PartialAsync("_NotificationBell")
                 <li>
                     <div class="profile-dropdown" onclick="toggleDropdown(event)">
-                        <img src="~/images/profile/pfp1.jpg" alt="Profile" style="width: 38px; height: 38px; border-radius:50%; object-fit: cover;"/>
+                        <img src="~/images/profile/pfp1.jpg" alt="Profile" style="width: 38px; height: 38px; border-radius:50%; object-fit: cover;" />
                         <div class="profileDetail">
                             <span style="font-size: 0.85rem; font-weight: bold; color: #ffff;">@Model.CurrentUserName</span>
                             <span style="font-size: 0.75rem; color:#64748b;">@Model.CurrentUserRole</span>
                         </div>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                         <div id="myDropdown" class="dropdown-menu">
                             <a asp-controller="Home" asp-action="Profile">My Profile</a>
                             <a asp-controller="Home" asp-action="Settings">Setting</a>
@@ -59,10 +53,10 @@
                 <p class="sidebar-title">Workspace</p>
                 <ul class="nav2">
                     <li class="nav-item2">
-                        <a asp-controller="Home" asp-action="Home" class="active"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Dashboard</a>
+                        <a asp-controller="Home" asp-action="Home" class="active"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z" /></svg>Dashboard</a>
                     </li>
                     <li class="nav-item2">
-                        <a asp-controller="Home" asp-action="Users"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 19v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1m6 0v-1a4 4 0 0 0-4-4m-2.5-8.83a3 3 0 1 1 0 5.659M12 8a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z"/></svg>Users</a>
+                        <a asp-controller="Home" asp-action="Users"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 19v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1m6 0v-1a4 4 0 0 0-4-4m-2.5-8.83a3 3 0 1 1 0 5.659M12 8a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z" /></svg>Users</a>
                     </li>
                     <li class="nav-item2">
                         <a asp-controller="Home" asp-action="Roles"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.645 5.264a1.25 1.25 0 0 0-1.29 0l-.516.31a10.75 10.75 0 0 1-4.537 1.494l-.325.03a.25.25 0 0 0-.227.25V8.99a9.25 9.25 0 0 0 2.82 6.65l3.256 3.148a.25.25 0 0 0 .348 0l3.255-3.147a9.25 9.25 0 0 0 2.821-6.65V7.346a.25.25 0 0 0-.227-.248l-.325-.031a10.75 10.75 0 0 1-4.537-1.493zM10.58 3.979a2.75 2.75 0 0 1 2.838 0l.516.31a9.25 9.25 0 0 0 3.904 1.286l.325.03a1.75 1.75 0 0 1 1.586 1.742v1.644a10.75 10.75 0 0 1-3.278 7.73l-3.256 3.146a1.75 1.75 0 0 1-2.432 0L7.528 16.72A10.75 10.75 0 0 1 4.25 8.991V7.347a1.75 1.75 0 0 1 1.586-1.742l.325-.03a9.25 9.25 0 0 0 3.904-1.285z" clip-rule="evenodd"></path></svg>Roles</a>
@@ -74,18 +68,22 @@
             </aside>
 
             <main class="main-content">
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:0.5rem; margin-top:2rem;">
-                    <div>
-                        <span style="color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">overview</span>
-                        <h2 style="font-size:1.75rem; font-weight: 700; margin: 0.25rem 0 0 0; color: #0f172a;">Good to see you, @Model.CurrentUserName</h2>
-                        <p style="color: #64748b; font-size:0.85rem; margin: 0.25rem 0 0 0;">Here's what's happening across your organization today.</p>
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:0.5rem; margin-top:2rem;">
+                        <div>
+                            <span style="color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">overview</span>
+                            <h2 style="font-size:1.75rem; font-weight: 700; margin: 0.25rem 0 0 0; color: #0f172a;">Good to see you, @Model.CurrentUserName</h2>
+                            <p style="color: #64748b; font-size:0.85rem; margin: 0.25rem 0 0 0;">Here's what's happening across your organization today.</p>
+                        </div>
+
+                        @if (Model.CurrentUserRole == "Administrator")
+                        {
+                        <button type="button" onclick="openPopUp('myModal')" style="background-color: #0f4c81; color: white; border:none; padding: 0.6rem 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items:center; gap:0.5rem; font-size: 0.9rem;">
+                            <span style="font-size: 1.1rem; font-weight: bold;">+</span>Create User
+                        </button>
+                        }
                     </div>
-                    <button type="button" onclick="openPopUp()" style="background-color: #0f4c81; color: white; border:none; padding: 0.6rem 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items:center; gap:0.5rem; font-size: 0.9rem;">
-                        <span style="font-size: 1.1rem; font-weight: bold;">+</span>Create User
-                    </button>
                 </div>
-            </div>
 
                 <section class="stats-grid">
                     <article class="stat-card">
@@ -98,6 +96,7 @@
                             <p class="stat-card__subtitle">Across all roles and workspaces</p>
                         </div>
                     </article>
+
                     <article class="stat-card">
                         <div class="stat-card__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M10 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M4 8a6 6 0 1 1 12 0A6 6 0 0 1 4 8m15 3a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1v-1a1 1 0 0 1 1-1M6.5 18C5.24 18 4 19.213 4 21a1 1 0 1 1-2 0c0-2.632 1.893-5 4.5-5h7c2.607 0 4.5 2.368 4.5 5a1 1 0 1 1-2 0c0-1.787-1.24-3-2.5-3z"/></svg>
@@ -108,6 +107,7 @@
                             <p class="stat-card__subtitle">New sign-ups in the last 30 days</p>
                         </div>
                     </article>
+
                     <article class="stat-card">
                         <div class="stat-card__icon">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M13.27 5.575a.75.75 0 0 1 1.436-.077l2.051 5.752c.73 0 1.194-.136 1.685-.504a2 2 0 0 1 .514-.452L19 10.25v.018a2 2 0 1 1 0 3.465v.017l-.044-.044a2 2 0 0 1-.49-.422c-.455-.33-.882-.443-1.515-.46h-.697a.75.75 0 0 1-.706-.499l-1.408-3.95l-2.42 10.05a.75.75 0 0 1-1.437.072l-2.824-8.09l-.76 1.94c-.113.287-.39.653-.699.653H2v-1.5h3.489l1.313-3.524a.75.75 0 0 1 1.406.027l2.651 7.592z"/></svg>
@@ -119,6 +119,7 @@
                         </div>
                     </article>
                 </section>
+
                 <section class="LineChart-grid">
                     <article class="LineChart-card">
                         <h3 class="LineChart__title">User Registrations Trends</h3>
@@ -142,41 +143,46 @@
             </main>
         </div>
     </div>
-    <div id="myModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="createUserTitle">
-        <div class="modal-card">
-            <h3 id="createUserTitle">Create New User</h3>
-            <p>Fill out the information details below to add a new account.</p>
-            <form id="createUserForm" asp-controller="Home" asp-action="CreateUser" method="post">
-                @Html.AntiForgeryToken()
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="Username" placeholder="Enter username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="Email" placeholder="Enter email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Temporary Password</label>
-                    <input type="password" id="password" name="Password" placeholder="Enter a temporary password" minlength="6" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" name="RoleId" required>
-                        <option value="">Select a role</option>
-                        @foreach (var role in Model.Roles)
-                        {
-                            <option value="@role.ID">@role.Name</option>
-                        }
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" onclick="closePopUp()" class="btn-cancel">Cancel</button>
-                    <button type="submit" class="btn-submit">Submit</button>
-                </div>
-            </form>
+
+    @if (Model.CurrentUserRole == "Administrator")
+    {
+        <div id="myModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="createUserTitle">
+            <div class="modal-card">
+                <h3 id="createUserTitle">Create New User</h3>
+                <p>Fill out the information details below to add a new account.</p>
+                <form id="createUserForm" asp-controller="Home" asp-action="CreateUser" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="Username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="Email" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Temporary Password</label>
+                        <input type="password" id="password" name="Password" placeholder="Enter a temporary password" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select id="role" name="RoleId" required>
+                            <option value="">Select a role</option>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.ID">@role.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" onclick="closePopUp()" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    }
+
     <script>
         window.dashboardInitialData = {
             labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TrendLabels)),
@@ -187,5 +193,7 @@
     <script src="~/js/linechart.js" asp-append-version="true"></script>
     <script src="~/js/profile.js" asp-append-version="true"></script>
     <script src="~/js/modal.js" asp-append-version="true"></script>
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
 </body>
 </html>
+

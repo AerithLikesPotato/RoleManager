@@ -104,10 +104,18 @@ namespace WebApplication2.Controllers
             return View(users);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateUser(CreateUserRequest request)
         {
+            if (!HasPermission("create-user"))
+            {
+                TempData["NotificationMessage"] = "You do not have permission to create users.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Users");
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["NotificationMessage"] = string.Join(" ", ModelState.Values
@@ -131,13 +139,20 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Users");
             }
 
-            if (!await _db.Roles.AnyAsync(r => r.ID == request.RoleId))
+            var targetRole = await _db.Roles.FirstOrDefaultAsync(r => r.ID == request.RoleId);
+            if (targetRole == null)
             {
                 TempData["NotificationMessage"] = "Selected role does not exist.";
                 TempData["NotificationType"] = "error";
                 return RedirectToAction("Users");
             }
 
+            if (IsAdministratorRole(targetRole) && !User.IsInRole("Administrator"))
+            {
+                TempData["NotificationMessage"] = "Only administrators can assign the Administrator role.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Users");
+            }
             var user = new User
             {
                 Username = request.Username,
@@ -150,6 +165,7 @@ namespace WebApplication2.Controllers
             };
 
             _db.Users.Add(user);
+            LogActivity("create-user", $"Created user '{user.Username}' with role '{targetRole.Name}'.");
             await _db.SaveChangesAsync();
 
             TempData["NotificationMessage"] = $"User '{user.Username}' created successfully.";
@@ -157,10 +173,19 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Users");
         }
 
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUser(UpdateUserRequest request)
         {
+            if (!HasPermission("update-user"))
+            {
+                TempData["NotificationMessage"] = "You do not have permission to update users.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Users");
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["NotificationMessage"] = string.Join(" ", ModelState.Values
@@ -185,9 +210,17 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Users");
             }
 
-            if (!await _db.Roles.AnyAsync(r => r.ID == request.RoleId))
+            var targetRole = await _db.Roles.FirstOrDefaultAsync(r => r.ID == request.RoleId);
+            if (targetRole == null)
             {
                 TempData["NotificationMessage"] = "Selected role does not exist.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Users");
+            }
+
+            if (IsAdministratorRole(targetRole) && !User.IsInRole("Administrator"))
+            {
+                TempData["NotificationMessage"] = "Only administrators can assign the Administrator role.";
                 TempData["NotificationType"] = "error";
                 return RedirectToAction("Users");
             }
@@ -197,6 +230,7 @@ namespace WebApplication2.Controllers
             user.RoleID = request.RoleId;
             user.Status = request.Status;
 
+            LogActivity("update-user", $"Updated user '{user.Username}'.");
             await _db.SaveChangesAsync();
 
             TempData["NotificationMessage"] = $"User '{user.Username}' updated successfully.";
@@ -204,6 +238,7 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Users");
         }
 
+        [Authorize(Roles="Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser(int id)
@@ -217,6 +252,7 @@ namespace WebApplication2.Controllers
             }
 
             _db.Users.Remove(user);
+            LogActivity("delete-user", $"Deleted user '{user.Username}'.");
             await _db.SaveChangesAsync();
             TempData["NotificationMessage"] = $"User '{user.Username}' deleted successfully.";
             TempData["NotificationType"] = "success";
@@ -229,10 +265,18 @@ namespace WebApplication2.Controllers
             return View(roles);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRole(CreateRoleRequest request)
         {
+            if (!HasPermission("create-role"))
+            {
+                TempData["NotificationMessage"] = "You do not have permission to create roles.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Roles");
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["NotificationMessage"] = string.Join(" ", ModelState.Values
@@ -257,6 +301,7 @@ namespace WebApplication2.Controllers
             };
 
             _db.Roles.Add(role);
+            LogActivity("create-role", $"Created role '{role.Name}'.");
             await _db.SaveChangesAsync();
 
             TempData["NotificationMessage"] = $"Role '{role.Name}' created successfully.";
@@ -264,10 +309,18 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Roles");
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRole(UpdateRoleRequest request)
         {
+            if (!HasPermission("update-role"))
+            {
+                TempData["NotificationMessage"] = "You do not have permission to update roles.";
+                TempData["NotificationType"] = "error";
+                return RedirectToAction("Roles");
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["NotificationMessage"] = string.Join(" ", ModelState.Values
@@ -296,12 +349,14 @@ namespace WebApplication2.Controllers
             role.Description = request.RoleDescription;
             role.Permissions = request.Permissions != null ? string.Join(",", request.Permissions) : null;
 
+            LogActivity("update-role", $"Updated role '{role.Name}'.");
             await _db.SaveChangesAsync();
             TempData["NotificationMessage"] = $"Role '{role.Name}' updated successfully.";
             TempData["NotificationType"] = "success";
             return RedirectToAction("Roles");
         }
 
+        [Authorize(Roles="Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRole(int id)
@@ -315,13 +370,64 @@ namespace WebApplication2.Controllers
             }
 
             _db.Roles.Remove(role);
+            LogActivity("delete-role", $"Deleted role '{role.Name}'.");
             await _db.SaveChangesAsync();
             TempData["NotificationMessage"] = $"Role '{role.Name}' deleted successfully.";
             TempData["NotificationType"] = "success";
             return RedirectToAction("Roles");
         }
 
+        // Administrators see everything; everyone else only sees their own actions.
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> RecentActivity()
+        {
+            IQueryable<ActivityLog> query = _db.ActivityLogs.Include(a => a.Actor).AsNoTracking();
+
+            if (!User.IsInRole("Administrator"))
+            {
+                query = query.Where(a => a.ActorUserId == CurrentUserId);
+            }
+
+            var items = await query
+                .OrderByDescending(a => a.CreatedAt)
+                .Take(10)
+                .Select(a => new
+                {
+                    id = a.Id,
+                    action = a.Action,
+                    description = a.Description,
+                    actorName = a.Actor != null ? a.Actor.FullName : "System",
+                    createdAt = a.CreatedAt
+                })
+                .ToListAsync();
+
+            return Json(items);
+        }
+
         private int CurrentUserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
+
+        // Queues an activity_logs row. Doesn't call SaveChangesAsync itself --
+        // call it right before the action's own SaveChangesAsync so the log
+        // and the actual change commit together in one transaction.
+        private void LogActivity(string action, string description)
+        {
+            _db.ActivityLogs.Add(new ActivityLog
+            {
+                ActorUserId = CurrentUserId == 0 ? null : CurrentUserId,
+                Action = action,
+                Description = description,
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+
+        // Administrators always pass; everyone else needs the specific permission
+        // claim (populated at login from their role's toggled permissions).
+        private bool HasPermission(string permission) =>
+            User.IsInRole("Administrator") || User.HasClaim("permission", permission);
+
+        private static bool IsAdministratorRole(Role role) =>
+            string.Equals(role.Name, "Administrator", StringComparison.OrdinalIgnoreCase);
 
         public async Task<IActionResult> Profile()
         {

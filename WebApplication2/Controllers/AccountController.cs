@@ -62,6 +62,14 @@ namespace WebApplication2.Controllers
                 new Claim(ClaimTypes.Role, user.Role?.Name ?? DefaultSignupRoleName)
             };
 
+            if (!string.IsNullOrWhiteSpace(user.Role?.Permissions))
+            {
+                foreach (var permission in user.Role.Permissions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                {
+                    claims.Add(new Claim("permission", permission));
+                }
+            }
+
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 

@@ -3,57 +3,75 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Data
 {
-    public class AppDbContext : DbContext
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Role> Roles => Set<Role>();
+	public class AppDbContext : DbContext
+	{
+		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+		public DbSet<User> Users => Set<User>();
+		public DbSet<Role> Roles => Set<Role>();
+		public DbSet<ActivityLog> ActivityLogs => Set<ActivityLog>();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<Role>().ToTable("roles");
+		// NOTE: This DbContext maps to a database schema that was created and is managed
+		// by hand in pgAdmin (not by EF Core migrations). The column names below match the
+		// actual "roles" and "users" tables. Do NOT call db.Database.Migrate() against this
+		// schema -- EF has no migration history for these tables and would try to CREATE TABLE,
+		// which fails because they already exist. See the ALTER TABLE script provided alongside
+		// this project for the handful of columns EF needs that aren't in the tables yet.
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Role>(e =>
+			{
+				e.ToTable("roles");
+				e.HasKey(r => r.ID);
+				e.Property(r => r.ID).HasColumnName("Role_ID");
+				e.Property(r => r.Name).HasColumnName("rolename");
+				e.Property(r => r.Description).HasColumnName("roledesc");
+				e.Property(r => r.Permissions).HasColumnName("permissions");
 
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleID)
-                .OnDelete(DeleteBehavior.SetNull);
+				e.HasIndex(r => r.Name).IsUnique();
+			});
 
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.Email)
-                .IsUnique();
+			modelBuilder.Entity<User>(e =>
+			{
+				e.ToTable("users");
+				e.HasKey(u => u.id);
+				e.Property(u => u.id).HasColumnName("userid");
+				e.Property(u => u.Username).HasColumnName("username");
+				e.Property(u => u.FullName).HasColumnName("fullname");
+				e.Property(u => u.Email).HasColumnName("email");
+				e.Property(u => u.PasswordHash).HasColumnName("password_hash");
+				e.Property(u => u.RoleID).HasColumnName("Role_ID");
+				e.Property(u => u.Status).HasColumnName("status");
+				e.Property(u => u.AvatarUrl).HasColumnName("avatar_url");
+				e.Property(u => u.Phone).HasColumnName("phone");
+				e.Property(u => u.Bio).HasColumnName("bio");
+				e.Property(u => u.CreatedAt).HasColumnName("created_at");
 
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.Username)
-                .IsUnique();
+				e.HasOne(u => u.Role)
+					.WithMany(r => r.Users)
+					.HasForeignKey(u => u.RoleID)
+					.OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Role>()
-                .HasIndex(r => r.Name)
-                .IsUnique();
+				e.HasIndex(u => u.Email).IsUnique();
+				e.HasIndex(u => u.Username).IsUnique();
+			});
 
-            modelBuilder.Entity<Role>().HasData(
-                new Role { ID = 1, Name = "Administrator", Description = "Full access to all system resources, user management and configuration." },
-                new Role { ID = 2, Name = "Manager", Description = "Manage team members, reviews activity, and views reporting dashboards." },
-                new Role { ID = 3, Name = "Editor", Description = "Creates and edits content within assigned projects and workspaces." },
-                new Role { ID = 4, Name = "Viewer", Description = "Read-only access to dashboards, users and reports." }
-            );
+			modelBuilder.Entity<ActivityLog>(e =>
+			{
+				e.ToTable("activity_logs");
+				e.HasKey(a => a.Id);
+				e.Property(a => a.Id).HasColumnName("id");
+				e.Property(a => a.ActorUserId).HasColumnName("actor_user_id");
+				e.Property(a => a.Action).HasColumnName("action");
+				e.Property(a => a.Description).HasColumnName("description");
+				e.Property(a => a.CreatedAt).HasColumnName("created_at");
 
-            // Username: admin  Email: admin@vantage.io  Password: Admin@123
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    id = 1,
-                    Username = "admin",
-                    FullName = "Jonh Doe",
-                    Email = "admin@vantage.io",
-                    PasswordHash = "$2b$11$R5Jr57BjaGKpdE1OiZSEPuNgprysMDk01lRfFssW40XzWEmV.MapG",
-                    RoleID = 1,
-                    Status = "active",
-                    AvatarUrl = "/images/profile/pfp1.jpg",
-                    CreatedAt = new DateTime(2025, 7, 27, 0, 0, 0, DateTimeKind.Utc)
-                }
-            );
-        }
-    }
+				e.HasOne(a => a.Actor)
+					.WithMany()
+					.HasForeignKey(a => a.ActorUserId)
+					.OnDelete(DeleteBehavior.SetNull);
+
+				e.HasIndex(a => a.CreatedAt);
+			});
+		}
+	}
 }

@@ -48,6 +48,10 @@ function openEditRoleModal(button) {
     const roleId = button.getAttribute("data-id") || "";
     const roleName = button.getAttribute("data-name") || "";
     const roleDescription = button.getAttribute("data-description") || "";
+    const rolePermissions = button.getAttribute("data-permissions") || "";
+    const permissionSet = new Set(
+        rolePermissions.split(",").map(p => p.trim()).filter(p => p.length > 0)
+    );
 
     const editRoleId = document.getElementById("editRoleId");
     const deleteRoleId = document.getElementById("deleteRoleId");
@@ -58,6 +62,11 @@ function openEditRoleModal(button) {
     if (deleteRoleId) deleteRoleId.value = roleId;
     if (editRoleName) editRoleName.value = roleName;
     if (editRoleDescription) editRoleDescription.value = roleDescription;
+
+    // Toggle each permission checkbox on/off based on the role's saved permissions.
+    document.querySelectorAll('#editRoleForm input[name="Permissions"]').forEach(function (checkbox) {
+        checkbox.checked = permissionSet.has(checkbox.value);
+    });
 }
 
 document.addEventListener("click", function (event) {

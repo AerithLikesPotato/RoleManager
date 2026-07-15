@@ -32,13 +32,7 @@
                         </button>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="notif" href="#">
-                        <span class="notif-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5a.5.5 0 0 0-.5-.5a.5.5 0 0 0-.5.5v1.53c-2.25.25-4 2.15-4 4.47v5.91L5.41 18h12.18L16 16.41V10.5c0-2.32-1.75-4.22-4-4.47zM11.5 3A1.5 1.5 0 0 1 13 4.5v.71c2.31.65 4 2.79 4 5.29V16l3 3H3l3-3v-5.5C6 8 7.69 5.86 10 5.21V4.5A1.5 1.5 0 0 1 11.5 3m0 19a2.5 2.5 0 0 1-2.45-2h1.04a1.495 1.495 0 0 0 2.82 0h1.04a2.5 2.5 0 0 1-2.45 2"/></svg>
-                        </span>
-                    </a>
-                </li>
+                @await Html.PartialAsync("_NotificationBell")
                 <li>
                     <div class="profile-dropdown" onclick="toggleDropdown(event)">
                         <img src="~/images/profile/pfp1.jpg" alt="Profile" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;" />
@@ -110,7 +104,7 @@
                                     </td>
                                     <td class="description">@role.Description</td>
                                     <td class="user">@role.Users.Count users</td>
-                                    <td class="edit"><button type="button" onclick="openEditRoleModal(this)" data-id="@role.ID" data-name="@role.Name" data-description="@role.Description" aria-label="Edit role" style="background: transparent; border: none; color: #0f4c81; font-size: 0.85rem; cursor: pointer; font-weight: 600;">Edit</button></td>
+                                    <td class="edit"><button type="button" onclick="openEditRoleModal(this)" data-id="@role.ID" data-name="@role.Name" data-description="@role.Description" data-permissions="@role.Permissions" aria-label="Edit role" style="background: transparent; border: none; color: #0f4c81; font-size: 0.85rem; cursor: pointer; font-weight: 600;">Edit</button></td>
                                 </tr>
                             }
                             @if (!Model.Any())
@@ -140,15 +134,25 @@
                 <div class="form-group">
                     <label>Allowed Permissions</label>
                     <div class="permission-list">
-                        <label class="permission-item" for="cbx-view-role-list">
-                            <input type="checkbox" id="cbx-view-role-list" name="permissions" value="view-role-list" style="display: none;">
+                        <label class="permission-item" for="cbx-create-user">
+                            <input type="checkbox" id="cbx-create-user" name="permissions" value="create-user" style="display: none;">
                             <span class="check" aria-hidden="true">
                                 <svg width="18px" height="18px" viewBox="0 0 18 18">
                                     <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
                                     <polyline points="1 9 7 14 15 4"></polyline>
                                 </svg>
                             </span>
-                            <span class="permission-text">View role list</span>
+                            <span class="permission-text">Create User</span>
+                        </label>
+                        <label class="permission-item" for="cbx-update-user">
+                            <input type="checkbox" id="cbx-update-user" name="permissions" value="update-user" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Update User</span>
                         </label>
                         <label class="permission-item" for="cbx-create-role">
                             <input type="checkbox" id="cbx-create-role" name="permissions" value="create-role" style="display: none;">
@@ -158,37 +162,27 @@
                                     <polyline points="1 9 7 14 15 4"></polyline>
                                 </svg>
                             </span>
-                            <span class="permission-text">Create role</span>
+                            <span class="permission-text">Create Roles</span>
                         </label>
-                        <label class="permission-item" for="cbx-view-role-details">
-                            <input type="checkbox" id="cbx-view-role-details" name="permissions" value="view-role-details" style="display: none;">
+                        <label class="permission-item" for="cbx-update-role">
+                            <input type="checkbox" id="cbx-update-role" name="permissions" value="update-role" style="display: none;">
                             <span class="check" aria-hidden="true">
                                 <svg width="18px" height="18px" viewBox="0 0 18 18">
                                     <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
                                     <polyline points="1 9 7 14 15 4"></polyline>
                                 </svg>
                             </span>
-                            <span class="permission-text">View role details</span>
+                            <span class="permission-text">Update Role</span>
                         </label>
-                        <label class="permission-item" for="cbx-edit-role">
-                            <input type="checkbox" id="cbx-edit-role" name="permissions" value="edit-role" style="display: none;">
+                        <label class="permission-item" for="cbx-read-only">
+                            <input type="checkbox" id="cbx-read-only" name="permissions" value="read-only" style="display: none;">
                             <span class="check" aria-hidden="true">
                                 <svg width="18px" height="18px" viewBox="0 0 18 18">
                                     <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
                                     <polyline points="1 9 7 14 15 4"></polyline>
                                 </svg>
                             </span>
-                            <span class="permission-text">Edit role</span>
-                        </label>
-                        <label class="permission-item" for="cbx-delete-role">
-                            <input type="checkbox" id="cbx-delete-role" name="permissions" value="delete-role" style="display: none;">
-                            <span class="check" aria-hidden="true">
-                                <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                    <polyline points="1 9 7 14 15 4"></polyline>
-                                </svg>
-                            </span>
-                            <span class="permission-text">Delete role</span>
+                            <span class="permission-text">Read-Only</span>
                         </label>
                     </div>
                 </div>
@@ -215,6 +209,61 @@
                     <label for="editRoleDescription">Description</label>
                     <input type="text" id="editRoleDescription" name="RoleDescription" placeholder="Enter description">
                 </div>
+                <div class="form-group">
+                    <label>Allowed Permissions</label>
+                    <div class="permission-list">
+                        <label class="permission-item" for="edit-cbx-create-user">
+                            <input type="checkbox" id="edit-cbx-create-user" name="Permissions" value="create-user" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Create User</span>
+                        </label>
+                        <label class="permission-item" for="edit-cbx-update-user">
+                            <input type="checkbox" id="edit-cbx-update-user" name="Permissions" value="update-user" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Update User</span>
+                        </label>
+                        <label class="permission-item" for="edit-cbx-create-role">
+                            <input type="checkbox" id="edit-cbx-create-role" name="Permissions" value="create-role" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Create Roles</span>
+                        </label>
+                        <label class="permission-item" for="edit-cbx-update-role">
+                            <input type="checkbox" id="edit-cbx-update-role" name="Permissions" value="update-role" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Update Role</span>
+                        </label>
+                        <label class="permission-item" for="edit-cbx-read-only">
+                            <input type="checkbox" id="edit-cbx-read-only" name="Permissions" value="read-only" style="display: none;">
+                            <span class="check" aria-hidden="true">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                            </span>
+                            <span class="permission-text">Read-Only</span>
+                        </label>
+                    </div>
+                </div>
                 <div class="modal-actions">
                     <button type="button" onclick="closePopUp('editRoleModal')" class="btn-cancel">Cancel</button>
                     <button type="submit" class="btn-submit">Save Changes</button>
@@ -229,5 +278,6 @@
     </div>
     <script src="~/js/profile.js" asp-append-version="true"></script>
     <script src="~/js/modal.js" asp-append-version="true"></script>
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
 </body>
 </html>
